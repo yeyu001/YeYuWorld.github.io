@@ -25,19 +25,17 @@
                 @apply fixed inset-0 z-0 overflow-hidden;
             }
             .bg-image {
-                @apply w-full h-auto min-h-full object-cover;
-                /* 调整垂直位置，减少上下填充 */
-                object-position: center 30%;
-                /* 控制缩放比例，避免过度填充 */
-                transform: scale(1.1);
+                @apply w-full h-full object-cover;
+                /* 关键调整：确保左侧英文完整显示，同时垂直居中 */
+                object-position: left 35% center;
             }
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 m-0">
-    <!-- 背景图设置（减少上下填充） -->
+    <!-- 背景图设置（已替换为指定图片，优化显示位置） -->
     <div class="bg-container">
-        <img src="网站背景2.jpg" alt="背景图" class="bg-image">
+        <img src="网站背景2.jpg" alt="FURRY风格背景图" class="bg-image">
     </div>
     
     <!-- 内容容器（置于背景上方） -->
