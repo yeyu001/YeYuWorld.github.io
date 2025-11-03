@@ -26,48 +26,85 @@
             }
             .bg-image {
                 @apply w-full h-full object-cover;
-                /* 关键调整：确保左侧英文完整显示，同时垂直居中 */
                 object-position: left 35% center;
+            }
+            /* 图片保护覆盖层 */
+            .image-protect {
+                @apply absolute inset-0 z-10 cursor-default;
             }
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 m-0">
-    <!-- 背景图设置（已替换为指定图片，优化显示位置） -->
-    <div class="bg-container">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 m-0" oncontextmenu="return false">
+    <!-- 背景图设置（带保护覆盖层） -->
+    <div class="bg-container relative">
         <img src="网站背景2.jpg" alt="FURRY风格背景图" class="bg-image">
+        <!-- 背景图保护层 -->
+        <div class="image-protect" title="背景图保护"></div>
     </div>
     
     <!-- 内容容器（置于背景上方） -->
     <div class="container mx-auto max-w-md z-10 content-card">
-        <!-- 头像区域 -->
-        <div class="w-40 h-40 mx-auto mb-12 avatar-shadow rounded-full overflow-hidden border-4 border-white">
+        <!-- 头像区域（带保护覆盖层） -->
+        <div class="w-40 h-40 mx-auto mb-4 avatar-shadow rounded-full overflow-hidden border-4 border-white relative">
             <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/6f507a4e1146424f8becd3e2b2f4a3e1.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251102224839691EB1EB72F38055A5E2&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1762699719&x-signature=WYmng%2FTDiQWYg2OtXl3qn4y1H%2B8%3D">
+            <!-- 头像保护层 -->
+            <div class="image-protect" title="头像保护"></div>
         </div>
         
-        <!-- 按钮区域 -->
+        <!-- 标题文字 -->
+        <h1 class="text-center text-2xl font-bold mb-8 text-[#b0c4ff]">夜羽謃宸的小屋</h1>
+        
+        <!-- 按钮区域（平台图标带保护） -->
         <div class="flex flex-col gap-5 w-full">
             <!-- 快手按钮 -->
-            <a href="https://v.kuaishou.com/KMuErGSR" target="_blank" class="btn-oval bg-gradient-to-r from-orange-500 to-red-500 text-white font-medium">
+            <a href="https://v.kuaishou.com/KMuErGSR" target="_blank" class="btn-oval bg-gradient-to-r from-orange-500 to-red-500 text-white font-medium relative">
                 <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/0bd66e34d76f47e486d50adc605d17ad.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251102212620BDA0C9DC6D425DFCB145&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1762694780&x-signature=G9fsXZpctZJ9BsP%2FmIMthPloTh8%3D" 
                      alt="快手" class="platform-icon">
                 <span>快手账号</span>
+                <!-- 图标保护层 -->
+                <div class="image-protect absolute left-4 w-10 h-10" title="图标保护"></div>
             </a>
             
             <!-- 抖音按钮 -->
-            <a href="https://v.douyin.com/nLGBI0eMWdI/" target="_blank" class="btn-oval bg-black text-white font-medium">
+            <a href="https://v.douyin.com/nLGBI0eMWdI/" target="_blank" class="btn-oval bg-black text-white font-medium relative">
                 <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/8c12ac9386c944e9abc012069051d987.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251102212620BDA0C9DC6D425DFCB145&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1762694780&x-signature=X33HQuH6EHvywm%2FocmtG4PdMe9U%3D" 
                      alt="抖音" class="platform-icon">
                 <span>抖音账号</span>
+                <!-- 图标保护层 -->
+                <div class="image-protect absolute left-4 w-10 h-10" title="图标保护"></div>
             </a>
             
             <!-- 哔哩哔哩按钮 -->
-            <a href="https://b23.tv/XY116Ft" target="_blank" class="btn-oval bg-gradient-to-r from-pink-500 to-pink-600 text-white font-medium">
+            <a href="https://b23.tv/XY116Ft" target="_blank" class="btn-oval bg-gradient-to-r from-pink-500 to-pink-600 text-white font-medium relative">
                 <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/ea3a2262f4b243b6b7ac4338c05d2821.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251102213138A277C572AD3C4D965347&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1762695098&x-signature=9s5W7pk8E4bPhw8pB2l5RAQs%2BWw%3D" 
                      alt="哔哩哔哩" class="platform-icon">
                 <span>哔哩哔哩账号</span>
+                <!-- 图标保护层 -->
+                <div class="image-protect absolute left-4 w-10 h-10" title="图标保护"></div>
             </a>
         </div>
     </div>
+
+    <script>
+        // 禁止图片拖拽
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+
+        // 禁止F12开发者工具（增强保护）
+        document.addEventListener('keydown', function(e) {
+            // 禁止F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+            // 禁止Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
