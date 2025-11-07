@@ -32,6 +32,40 @@
             .image-protect {
                 @apply absolute inset-0 z-10 cursor-default;
             }
+            /* 弹窗样式 */
+            .modal-overlay {
+                @apply fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300;
+            }
+            .modal-overlay.active {
+                @apply opacity-100 pointer-events-auto;
+            }
+            .modal-content {
+                @apply bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-md max-h-[70vh] overflow-y-auto transform scale-95 transition-transform duration-300;
+            }
+            .modal-overlay.active .modal-content {
+                @apply scale-100;
+            }
+            .modal-header {
+                @apply px-6 py-4 border-b border-gray-200 flex items-center justify-between;
+            }
+            .modal-title {
+                @apply text-xl font-bold text-[#b0c4ff];
+            }
+            .modal-close {
+                @apply text-gray-500 hover:text-gray-700 cursor-pointer transition-colors;
+            }
+            .modal-body {
+                @apply px-6 py-4 space-y-4;
+            }
+            .update-item {
+                @apply pb-4 border-b border-gray-100 last:border-0 last:pb-0;
+            }
+            .update-date {
+                @apply text-sm text-gray-500 font-medium;
+            }
+            .update-desc {
+                @apply text-gray-700 mt-1;
+            }
         }
     </style>
 </head>
@@ -83,6 +117,58 @@
                 <!-- 图标保护层 -->
                 <div class="image-protect absolute left-4 w-10 h-10" title="图标保护"></div>
             </a>
+            
+            <!-- 更新记录按钮（点击打开弹窗） -->
+            <button id="updateBtn" class="btn-oval bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-medium relative">
+                <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEFx0JpDgGOD9hMrw7_RLFqUu_t_j-d8AAC_iIAAqr0cVSrpm_CJR9TxDYE.png" 
+                     alt="更新记录" class="platform-icon">
+                <span>更新记录</span>
+                <!-- 图标保护层 -->
+                <div class="image-protect absolute left-4 w-10 h-10" title="图标保护"></div>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 更新记录弹窗 -->
+    <div id="updateModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">更新记录</h2>
+                <span id="closeModal" class="modal-close text-xl">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- 更新记录内容 -->
+                <div class="update-item">
+                    <div class="update-date">2025年11月3日</div>
+                    <div class="update-desc">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>新增更新记录功能，支持查看历史更新</li>
+                            <li>优化按钮交互效果，提升用户体验</li>
+                            <li>增强页面响应式适配，支持更多设备</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="update-item">
+                    <div class="update-date">2025年11月2日</div>
+                    <div class="update-desc">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>初始版本发布，支持快手、抖音、哔哩哔哩账号跳转</li>
+                            <li>添加图片保护功能，禁止拖拽和右键保存</li>
+                            <li>优化页面视觉设计，采用FURRY风格背景</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="update-item">
+                    <div class="update-date">2025年11月1日</div>
+                    <div class="update-desc">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>项目启动，确定页面整体架构</li>
+                            <li>设计按钮样式和页面布局</li>
+                            <li>集成Tailwind CSS实现样式控制</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -105,6 +191,40 @@
                 e.preventDefault();
             }
         });
+
+        // 弹窗控制逻辑
+        const updateBtn = document.getElementById('updateBtn');
+        const updateModal = document.getElementById('updateModal');
+        const closeModal = document.getElementById('closeModal');
+
+        // 打开弹窗
+        updateBtn.addEventListener('click', function() {
+            updateModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+        });
+
+        // 关闭弹窗（点击关闭按钮）
+        closeModal.addEventListener('click', closeModalFunc);
+
+        // 关闭弹窗（点击遮罩层）
+        updateModal.addEventListener('click', function(e) {
+            if (e.target === updateModal) {
+                closeModalFunc();
+            }
+        });
+
+        // 关闭弹窗（按ESC键）
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && updateModal.classList.contains('active')) {
+                closeModalFunc();
+            }
+        });
+
+        // 关闭弹窗函数
+        function closeModalFunc() {
+            updateModal.classList.remove('active');
+            document.body.style.overflow = ''; // 恢复背景滚动
+        }
     </script>
 </body>
 </html>
